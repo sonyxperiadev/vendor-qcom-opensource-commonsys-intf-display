@@ -10,7 +10,24 @@ cc_library_shared {
         "libcutils",
         "libutils",
     ],
-    header_libs: ["libhardware_headers", "display_intf_headers"],
+    header_libs: ["libhardware_headers", "display_intf_headers", "display_intf_headers_gralloc"],
+    srcs: ["qdMetaData.cpp", "qd_utils.cpp"],
+    export_header_lib_headers: ["display_intf_headers"],
+}
+
+cc_library_shared {
+    name: "libqdMetaData.legacy",
+    vendor_available: true,
+    cflags: [
+        "-Wno-sign-conversion",
+        "-DLOG_TAG=\"qdmetadata\"",
+    ],
+    shared_libs: [
+        "liblog",
+        "libcutils",
+        "libutils",
+    ],
+    header_libs: ["libhardware_headers", "display_intf_headers", "display_intf_headers_gralloc1"],
     srcs: ["qdMetaData.cpp", "qd_utils.cpp"],
     export_header_lib_headers: ["display_intf_headers"],
 }
