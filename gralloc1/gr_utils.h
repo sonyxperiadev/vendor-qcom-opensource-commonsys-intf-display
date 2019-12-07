@@ -69,7 +69,6 @@ bool CpuCanWrite(gralloc1_producer_usage_t prod_usage);
 unsigned int GetSize(const BufferInfo &d, unsigned int alignedw, unsigned int alignedh);
 void GetBufferSizeAndDimensions(const BufferInfo &d, unsigned int *size,
                                 unsigned int *alignedw, unsigned int *alignedh);
-void GetCustomDimensions(private_handle_t *hnd, int *stride, int *height);
 void GetAlignedWidthAndHeight(const BufferInfo &d, unsigned int *aligned_w,
                               unsigned int *aligned_h);
 int GetYUVPlaneInfo(const private_handle_t *hnd, struct android_ycbcr *ycbcr);
