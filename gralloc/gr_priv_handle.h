@@ -82,66 +82,11 @@ struct private_handle_t {
   int unaligned_height;  // holds height client asked to allocate
   int format;
   int buffer_type;
-#ifndef USE_GRALLOC1
-  unsigned int layer_count;
-  uint64_t id;
-  uint64_t usage;
-#endif
 
-  unsigned int size;
-  unsigned int offset;
-  unsigned int offset_metadata;
-  uint64_t base;
-  uint64_t base_metadata;
-  uint64_t gpuaddr;
-#ifdef USE_GRALLOC1
-  unsigned int layer_count;
-  uint64_t id;
-  uint64_t usage;
-#endif
+  // Target-specific members
+#include <private_handle_members.h>
+
 #ifdef __cplusplus
-  static const int kNumFds = 2;
-  static const int kMagic = 'gmsm';
-
-  static inline int NumInts() {
-    return ((sizeof(private_handle_t) - sizeof(native_handle_t)) / sizeof(int)) - kNumFds;
-  }
-
-  private_handle_t(int fd, int meta_fd, int flags, int width, int height, int uw, int uh,
-                   int format, int buf_type, unsigned int size, uint64_t usage = 0)
-      : fd(fd),
-        fd_metadata(meta_fd),
-        magic(kMagic),
-        flags(flags),
-        width(width),
-        height(height),
-        unaligned_width(uw),
-        unaligned_height(uh),
-        format(format),
-        buffer_type(buf_type),
-#ifndef USE_GRALLOC1
-        layer_count(1),
-        id(0),
-        usage(usage),
-#endif
-        size(size),
-        offset(0),
-        offset_metadata(0),
-        base(0),
-        base_metadata(0),
-#ifdef USE_GRALLOC1
-        gpuaddr(0),
-        layer_count(1),
-        id(0),
-        usage(usage) {
-#else
-        gpuaddr(0) {
-#endif
-    version = static_cast<int>(sizeof(native_handle));
-    numInts = NumInts();
-    numFds = kNumFds;
-  }
-
   // Legacy constructor used by some clients
   private_handle_t(int fd, unsigned int size, int usage, int buf_type, int format, int w, int h)
       : private_handle_t(fd, -1, PRIV_FLAGS_CLIENT_ALLOCATED, w, h, 0, 0, format, buf_type, size,
