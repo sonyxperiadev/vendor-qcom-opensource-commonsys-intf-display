@@ -22,13 +22,15 @@ func grallocDefaultsFactory() android.Module {
 func grallocDefaults(ctx android.LoadHookContext) {
 	gralloc1 := ctx.Config().VendorConfig("gralloc").Bool("use_v1")
 
-	if gralloc1 {
-		p := struct {
-			Cflags []string
-		}{
-			[]string{"-DUSE_GRALLOC1"},
-		}
+	p := struct {
+		Export_include_dirs []string
+	}{}
 
-		ctx.AppendProperties(&p)
+	if gralloc1 {
+		p.Export_include_dirs = []string{"gralloc1"}
+	} else {
+		p.Export_include_dirs = []string{"gralloc-next"}
 	}
+
+	ctx.AppendProperties(&p)
 }
