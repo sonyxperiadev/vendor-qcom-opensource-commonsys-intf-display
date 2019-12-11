@@ -1,25 +1,31 @@
-cc_library_headers {
-    name: "display_intf_headers",
-    vendor_available: true,
-    export_include_dirs: [
-        "include",
-        "libdisplayconfig",
-        "libqdmetadata",
+bootstrap_go_package {
+    name: "soong-gralloc_defaults",
+    pkgPath: "vendor/qcom/opensource/display-commonsys-intf",
+    deps: [
+        "blueprint",
+        "blueprint-pathtools",
+        "soong",
+        "soong-android",
+        "soong-cc",
     ],
+    srcs: [
+        "gralloc_defaults.go",
+    ],
+    pluginFor: ["soong_build"],
+}
+
+gralloc_defaults {
+    name: "gralloc_defaults",
 }
 
 cc_library_headers {
-    name: "display_intf_headers_gralloc",
+    name: "display_intf_headers",
+    defaults: ["gralloc_defaults"],
     vendor_available: true,
     export_include_dirs: [
         "gralloc",
-    ],
-}
-
-cc_library_headers {
-    name: "display_intf_headers_gralloc1",
-    vendor_available: true,
-    export_include_dirs: [
-        "gralloc1",
+        "include",
+        "libdisplayconfig",
+        "libqdmetadata",
     ],
 }
