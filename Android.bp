@@ -1,21 +1,31 @@
-bootstrap_go_package {
-    name: "soong-gralloc_defaults",
-    pkgPath: "vendor/qcom/opensource/display-commonsys-intf",
-    deps: [
-        "blueprint",
-        "blueprint-pathtools",
-        "soong",
-        "soong-android",
-        "soong-cc",
-    ],
-    srcs: [
-        "gralloc_defaults.go",
-    ],
-    pluginFor: ["soong_build"],
+soong_config_module_type {
+    name: "gralloc_cc_defaults",
+    module_type: "cc_defaults",
+    config_namespace: "gralloc",
+    variables: ["use_v1"],
+    properties: ["export_include_dirs"],
 }
 
-gralloc_defaults {
+soong_config_string_variable {
+    name: "use_v1",
+    // Pretty much a boolean, except that those do not support an `else` scenario
+    // See `PropertiesToApply` in https://android.googlesource.com/platform/build/soong/+/master/android/soongconfig/modules.go
+    values: ["true", "false"],
+}
+
+gralloc_cc_defaults {
     name: "gralloc_defaults",
+
+    soong_config_variables: {
+        use_v1: {
+            true: {
+                export_include_dirs: ["gralloc1"],
+            },
+            false: {
+                export_include_dirs: ["gralloc-next"],
+            },
+        },
+    },
 }
 
 cc_library_headers {
