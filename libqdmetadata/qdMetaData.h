@@ -84,7 +84,8 @@ enum DispParamType {
     SET_S3D_COMP               = 0x8000,
     SET_CVP_METADATA           = 0x00010000,
     SET_VIDEO_HISTOGRAM_STATS  = 0x00020000,
-    SET_VIDEO_TS_INFO          = 0x00040000
+    SET_VIDEO_TS_INFO          = 0x00040000,
+    CRC_BUFFER                 = 0x00080000
 };
 
 enum DispFetchParamType {
@@ -106,7 +107,8 @@ enum DispFetchParamType {
     GET_S3D_COMP              = 0x8000,
     GET_CVP_METADATA          = 0x00010000,
     GET_VIDEO_HISTOGRAM_STATS = 0x00020000,
-    GET_VIDEO_TS_INFO         = 0x00040000
+    GET_VIDEO_TS_INFO         = 0x00040000,
+    GET_CRC_BUFFER            = 0x00080000
 };
 
 /* Frame type bit mask */

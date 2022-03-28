@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020 The Linux Foundation. All rights reserved.
+ * Copyright (c) 2020-2021 The Linux Foundation. All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are
@@ -125,6 +125,9 @@ static const MetadataType MetadataType_RgbDataAddress = {VENDOR_QTI, QTI_RGB_DAT
 
 static const MetadataType MetadataType_ColorSpace = {VENDOR_QTI, QTI_COLORSPACE};
 static const MetadataType MetadataType_YuvPlaneInfo = {VENDOR_QTI, QTI_YUV_PLANE_INFO};
+
+static const MetadataType MetadataType_CRCBuffer = {VENDOR_QTI, QTI_CRC_BUFFER};
+
 // 0 is also used as invalid value in standard metadata
 static const MetadataType MetadataType_Invalid = {VENDOR_QTI, 0};
 
@@ -150,6 +153,7 @@ Error decodeUBWCStats(hidl_vec<uint8_t> &in, UBWCStats *out);
 Error encodeUBWCStats(UBWCStats *in, hidl_vec<uint8_t> *out);
 Error decodeCVPMetadata(hidl_vec<uint8_t> &in, CVPMetadata *out);
 Error encodeCVPMetadata(CVPMetadata &in, hidl_vec<uint8_t> *out);
+Error encodeCRCBufferDataRaw(void *in, hidl_vec<uint8_t> *out);
 Error decodeVideoHistogramMetadata(hidl_vec<uint8_t> &in, VideoHistogramMetadata *out);
 Error encodeVideoHistogramMetadata(VideoHistogramMetadata &in, hidl_vec<uint8_t> *out);
 Error decodeVideoTimestampInfo(hidl_vec<uint8_t> &in, VideoTimestampInfo *out);

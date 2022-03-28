@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020 The Linux Foundation. All rights reserved.
+ * Copyright (c) 202-2021 The Linux Foundation. All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are
@@ -101,6 +101,7 @@ struct MetaData_t {
   bool isVendorMetadataSet[METADATA_SET_SIZE];
   uint64_t reservedSize;
   VideoTimestampInfo videoTsInfo;
+  uint32_t crcBuffer[CRC_BUFFER_SIZE];
 };
 
 namespace qtigralloc {
