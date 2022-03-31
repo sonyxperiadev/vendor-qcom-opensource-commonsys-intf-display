@@ -178,6 +178,8 @@ class ClientImpl : public ClientInterface {
   virtual int SetCacEyeConfig(uint32_t disp_id, const CacEyeConfig &left,
                               const CacEyeConfig &right);
   virtual int SetSkewVsync(uint32_t disp_id, uint32_t skew_vsync_val);
+  virtual int SetActiveOnDisplayArea(uint64_t physical_disp_id, const Rect active_rect,
+                                     const Rect placement_rect);
 
  private:
   android::sp<IDisplayConfig> display_config_ = nullptr;

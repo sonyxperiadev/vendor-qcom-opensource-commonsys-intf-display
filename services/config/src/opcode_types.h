@@ -129,6 +129,8 @@ enum OpCode {
   kEnableCAC = 57,
   kSetCacEyeConfig = 58,
   kSetSkewVsync = 59,
+  kSetActiveOnDisplayArea = 60,
+  kDummyOpcode = 61,
 
   kDestroy = 0xFFFF, // Destroy sequence execution
 };
