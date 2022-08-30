@@ -80,6 +80,7 @@
 
 #define DISPLAY_CONFIG_CAMERA_SMOOTH_APIs_1_0
 #define DISPLAY_CONFIG_TILE_DISPLAY_APIS_1_0
+#define DISPLAY_CONFIG_TILE_DISPLAY_APIS_1_1
 
 namespace DisplayConfig {
 
@@ -358,6 +359,12 @@ struct SkewVsyncParams {
   uint32_t skew_vsync_val = 0;
 };
 
+struct ActiveOnDisplayAreaParams {
+  uint64_t physical_disp_id = 0;
+  Rect active_rect;
+  Rect placement_rect;
+};
+
 /* Callback Interface */
 class ConfigCallback {
  public:
@@ -464,6 +471,9 @@ class ConfigInterface {
   virtual int SetCacEyeConfig(uint32_t /* disp_id */, const CacEyeConfig & /* left */,
                               const CacEyeConfig & /* right */) DEFAULT_RET
   virtual int SetSkewVsync(uint32_t /* disp_id */, uint32_t /* skew_vsync_val */) DEFAULT_RET
+  virtual int SetActiveOnDisplayArea(uint64_t /* physical_disp_id */,
+                                     const Rect /* active on-display area rect */,
+                                     const Rect /* active on-display rect placement */) DEFAULT_RET
 
   // deprecated APIs
   virtual int GetDebugProperty(const std::string /* prop_name */,

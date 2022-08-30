@@ -1243,6 +1243,23 @@ int ClientImpl::SetSkewVsync(uint32_t disp_id, uint32_t skew_vsync_val) {
   return error;
 }
 
+int ClientImpl::SetActiveOnDisplayArea(uint64_t physical_disp_id, const Rect active_rect,
+                                       const Rect placement_rect) {
+  struct ActiveOnDisplayAreaParams input = {physical_disp_id, active_rect, placement_rect};
+  ByteStream input_params;
+  input_params.setToExternal(reinterpret_cast<uint8_t*>(&input),
+                             sizeof(struct ActiveOnDisplayAreaParams));
+  int error = 0;
+  ByteStream output_params;
+  auto hidl_cb = [&error] (int32_t err, ByteStream params, HandleStream handles) {
+    error = err;
+  };
+
+  display_config_->perform(client_handle_, kSetActiveOnDisplayArea, input_params, {}, hidl_cb);
+
+  return error;
+}
+
 Return<void> ClientCallback::perform(uint32_t op_code, const ByteStream &input_params,
                                      const HandleStream &input_handles) {
   switch (op_code) {

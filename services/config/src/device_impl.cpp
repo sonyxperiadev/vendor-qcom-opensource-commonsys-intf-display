@@ -1044,6 +1044,20 @@ void DeviceImpl::DeviceClientContext::ParseSetSkewVsync(const ByteStream &input_
   _hidl_cb(error, {}, {});
 }
 
+void DeviceImpl::DeviceClientContext::ParseSetActiveOnDisplayArea(const ByteStream &input_params,
+                                                                  perform_cb _hidl_cb) {
+  struct ActiveOnDisplayAreaParams active_ondisplay_area_data = {};
+
+  const uint8_t *data = input_params.data();
+  if (data) {
+    active_ondisplay_area_data = *reinterpret_cast<const ActiveOnDisplayAreaParams*>(data);
+  }
+  int32_t error = intf_->SetActiveOnDisplayArea(active_ondisplay_area_data.physical_disp_id,
+                                                active_ondisplay_area_data.active_rect,
+                                                active_ondisplay_area_data.placement_rect);
+  _hidl_cb(error, {}, {});
+}
+
 Return<void> DeviceImpl::perform(uint64_t client_handle, uint32_t op_code,
                                  const ByteStream &input_params, const HandleStream &input_handles,
                                  perform_cb _hidl_cb) {
@@ -1251,6 +1265,9 @@ Return<void> DeviceImpl::perform(uint64_t client_handle, uint32_t op_code,
       break;
     case kSetSkewVsync:
       client->ParseSetSkewVsync(input_params, _hidl_cb);
+      break;
+    case kSetActiveOnDisplayArea:
+      client->ParseSetActiveOnDisplayArea(input_params, _hidl_cb);
       break;
     default:
       _hidl_cb(-EINVAL, {}, {});

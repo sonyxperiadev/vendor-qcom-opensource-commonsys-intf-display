@@ -175,6 +175,7 @@ class DeviceImpl : public IDisplayConfig, public android::hardware::hidl_death_r
     void ParseEnableCAC(const ByteStream &input_params, perform_cb _hidl_cb);
     void ParseSetCacEyeConfig(const ByteStream &input_params, perform_cb _hidl_cb);
     void ParseSetSkewVsync(const ByteStream &input_params, perform_cb _hidl_cb);
+    void ParseSetActiveOnDisplayArea(const ByteStream &input_params, perform_cb _hidl_cb);
 
    private:
     ConfigInterface *intf_ = nullptr;
